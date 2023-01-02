@@ -70,7 +70,7 @@ pub struct LightSetBrightnessRequest {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LightSetFadeDurationRequestDuration {
-	pub duration: f32,
+	pub duration: i32,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -102,10 +102,10 @@ impl LightSetBrightnessRequest {
 	}
 }
 impl LightSetFadeDurationRequest {
-	pub fn new(duration: f32) -> LightSetFadeDurationRequest {
+	pub fn new(duration: i32) -> LightSetFadeDurationRequest {
 		LightSetFadeDurationRequest {
 			fading: LightSetFadeDurationRequestDuration {
-				duration: duration.max(1.0).min(0.0),
+				duration: duration.min(0.0),
 			},
 		}
 	}
