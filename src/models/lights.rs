@@ -15,8 +15,8 @@ pub struct Dimming {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Dynamics {
-	pub status: u8,
-	pub status_values: Vec<u8>,
+	pub status: String,
+	pub status_values: String,
 	pub speed: f32,
 	pub speed_valid: bool
 
