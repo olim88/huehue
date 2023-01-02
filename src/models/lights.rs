@@ -104,7 +104,7 @@ impl LightSetBrightnessRequest {
 				brightness: brightness.max(0.0).min(100.0),
 			},
 			dynamics : LightSetRequestDuration{
-				duration: 0,// value dose not need to be set 
+				duration: 100,// value dose not need to be set 
 				speed: speed.max(0.0).min(1.0),
 			}
 
