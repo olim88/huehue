@@ -13,7 +13,6 @@ pub struct Light {
 	pub name: String,
 	pub on: bool,
 	pub brightness: Option<f32>,
-	pub fade_time: Option<f32>,
 	pub color: Option<Color>,
 	pub temperature: Option<Temperature>,
 }
@@ -26,7 +25,6 @@ impl Light {
 			name: light.metadata.name,
 			on: light.on.on,
 			brightness: light.dimming.map(|dimming| dimming.brightness),
-			fade_time: light.dynamics.map(|dynamics| dynamics.speed),//not the right value the time is not in the get i might be changing the wrong thing
 			color: light.color,
 			temperature: light.color_temperature,
 		}
@@ -53,7 +51,7 @@ impl Light {
 
 		let url = self.hue.url(format!("clip/v2/resource/light/{}", self.id).as_str());
 		let application_key = self.hue.application_key().clone().unwrap();
-		let request_payload = LightSetColorRequest::new(component.clone()LightSetFadeDurationRequest::new(0));
+		let request_payload = LightSetColorRequest::new(component.clone();
 
 		match http::put_auth::<GenericResponse, LightSetColorRequest>(application_key, url, &request_payload).await {
 			Ok(_) => {
@@ -82,7 +80,7 @@ impl Light {
 
 		let url = self.hue.url(format!("clip/v2/resource/light/{}", self.id).as_str());
 		let application_key = self.hue.application_key().clone().unwrap();
-		let request_payload = LightSetBrightnessRequest::new(value.clone())+LightSetFadeDurationRequest::new(value.clone());
+		let request_payload:object = LightSetBrightnessRequest::new(value.clone(),0);
 
 		match http::put_auth::<GenericResponse, LightSetBrightnessRequest>(application_key, url, &request_payload).await
 		{
@@ -96,25 +94,3 @@ impl Light {
 		}
 	}
 	
-	pub async fn set_fade_time(&mut self, value: f32) -> Result<(), HueError> {
-		if self.fade_time.is_none() {
-			return Err(HueError::Unsupported);
-		}
-
-		let url = self.hue.url(format!("clip/v2/resource/light/{}", self.id).as_str());
-		let application_key = self.hue.application_key().clone().unwrap();
-		let request_payload = LightSetFadeDurationRequest::new(value.clone());
-
-		match http::put_auth::<GenericResponse, LightSetFadeDurationRequest>(application_key, url, &request_payload).await
-		{
-			Ok(_) => {
-				println!("testing");
-				if let Some(fade_time) = &mut self.fade_time {
-					*fade_time = value;
-				}
-				Ok(())
-			},
-			Err(e) => Err(e),
-		}
-	}
-}

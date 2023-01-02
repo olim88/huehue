@@ -66,17 +66,15 @@ pub struct LightSetBrightnessRequestBrightness {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LightSetBrightnessRequest {
 	pub dimming: LightSetBrightnessRequestBrightness,
+	pub dynamics: LightSetRequestDuration,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct LightSetFadeDurationRequestDuration {
-	pub duration: i32,
+pub struct LightSetRequestDuration {
+	pub time: i32,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct LightSetFadeDurationRequest {
-	pub fading: LightSetFadeDurationRequestDuration,
-}
+
 
 impl LightOnRequest {
 	pub fn new(on: bool) -> LightOnRequest {
@@ -93,20 +91,15 @@ impl LightSetColorRequest {
 }
 
 impl LightSetBrightnessRequest {
-	pub fn new(brightness: f32) -> LightSetBrightnessRequest {
+	pub fn new(brightness: f32,duration: i32) -> LightSetBrightnessRequest {
 		LightSetBrightnessRequest {
 			dimming: LightSetBrightnessRequestBrightness {
 				brightness: brightness.max(0.0).min(100.0),
 			},
-		}
-	}
-}
-impl LightSetFadeDurationRequest {
-	pub fn new(duration: i32) -> LightSetFadeDurationRequest {
-		LightSetFadeDurationRequest {
-			fading: LightSetFadeDurationRequestDuration {
-				duration: duration.min(0.0),
-			},
+			dynamics : LightSetRequestDuration{
+				time: duration.min(0),
+			}
+
 		}
 	}
 }
