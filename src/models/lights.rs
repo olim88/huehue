@@ -89,7 +89,7 @@ impl LightSetColorRequest {
 		LightSetColorRequest {
 			color: LightSetColorRequestXY { xy: color },
 			dynamics : LightSetRequestDuration{
-				duration: duration.max(0.0),
+				duration: duration.max(0),
 				speed: 0.00,//i do not know what this dose 
 			}
 		
@@ -104,7 +104,7 @@ impl LightSetBrightnessRequest {
 				brightness: brightness.max(0.0).min(100.0),
 			},
 			dynamics : LightSetRequestDuration{
-				duration: duration.max(0.0),
+				duration: duration.max(0),
 				speed: 0.00,//i do not know what this dose 
 			}
 
