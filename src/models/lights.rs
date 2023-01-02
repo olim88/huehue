@@ -15,7 +15,10 @@ pub struct Dimming {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Dynamics {
+	pub status: i32,
+	pub status_values: i32[],
 	pub speed: f32,
+	pub speed_valid: bool
 
 }
 
@@ -33,7 +36,7 @@ pub struct GetLightsResponseItem {
 	pub id: uuid::Uuid,
 	pub metadata: super::generic::Metadata,
 	pub dimming: Option<Dimming>,
-	//pub dynamics: Option<Dynamics>,
+	pub dynamics: Option<Dynamics>,
 	pub on: On,
 
 	pub color: Option<Color>,
