@@ -13,7 +13,7 @@ pub struct Light {
 	pub name: String,
 	pub on: bool,
 	pub brightness: Option<f32>,
-	pub fade_time: Option<i32>,
+	pub fade_time: Option<f32>,
 	pub color: Option<Color>,
 	pub temperature: Option<Temperature>,
 }
@@ -96,7 +96,7 @@ impl Light {
 		}
 	}
 	
-	pub async fn set_fade_time(&mut self, value: i32) -> Result<(), HueError> {
+	pub async fn set_fade_time(&mut self, value: f32) -> Result<(), HueError> {
 		if self.fade_time.is_none() {
 			return Err(HueError::Unsupported);
 		}
