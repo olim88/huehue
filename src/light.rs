@@ -51,7 +51,7 @@ impl Light {
 
 		let url = self.hue.url(format!("clip/v2/resource/light/{}", self.id).as_str());
 		let application_key = self.hue.application_key().clone().unwrap();
-		let request_payload = LightSetColorRequest::new(component.clone();
+		let request_payload = LightSetColorRequest::new(component.clone());
 
 		match http::put_auth::<GenericResponse, LightSetColorRequest>(application_key, url, &request_payload).await {
 			Ok(_) => {
@@ -80,7 +80,7 @@ impl Light {
 
 		let url = self.hue.url(format!("clip/v2/resource/light/{}", self.id).as_str());
 		let application_key = self.hue.application_key().clone().unwrap();
-		let request_payload:object = LightSetBrightnessRequest::new(value.clone(),0);
+		let request_payload = LightSetBrightnessRequest::new(value.clone(),0);
 
 		match http::put_auth::<GenericResponse, LightSetBrightnessRequest>(application_key, url, &request_payload).await
 		{
@@ -93,4 +93,5 @@ impl Light {
 			Err(e) => Err(e),
 		}
 	}
+}
 	
