@@ -15,8 +15,8 @@ pub struct Dimming {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Dynamics {
-	pub duration: i32,
-	pub min_dim_level: f32,
+	pub speed: f32,
+
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -67,7 +67,7 @@ pub struct LightSetBrightnessRequest {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LightSetFadeDurationRequestDuration {
-	pub duration: i32,
+	pub duration: f32,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -99,9 +99,9 @@ impl LightSetBrightnessRequest {
 	}
 }
 impl LightSetFadeDurationRequest {
-	pub fn new(duration: i32) -> LightSetFadeDurationRequest {
+	pub fn new(duration: f32) -> LightSetFadeDurationRequest {
 		LightSetFadeDurationRequest {
-			dimming: LightSetFadeDurationRequestDuration {
+			Dynamics: LightSetFadeDurationRequestDuration {
 				duration: duration.min(0),
 			},
 		}
