@@ -72,6 +72,7 @@ pub struct LightSetBrightnessRequest {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LightSetRequestDuration {
 	pub duration: i32,
+	pub speed: f32
 }
 
 
@@ -98,6 +99,7 @@ impl LightSetBrightnessRequest {
 			},
 			dynamics : LightSetRequestDuration{
 				duration: duration.min(0),
+				speed: 0.0,
 			}
 
 		}
