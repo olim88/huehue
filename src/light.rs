@@ -108,7 +108,7 @@ impl Light {
 		match http::put_auth::<GenericResponse, LightSetFadeDurationRequest>(application_key, url, &request_payload).await
 		{
 			Ok(_) => {
-				println("testing");
+				println!("testing");
 				if let Some(fade_time) = &mut self.fade_time {
 					*fade_time = value;
 				}
