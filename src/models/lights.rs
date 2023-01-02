@@ -14,6 +14,12 @@ pub struct Dimming {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Dynamics {
+	pub duration: i32,
+	pub min_dim_level: f32,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct GetLightsResponse {
 	pub data: Option<Vec<GetLightsResponseItem>>,
 	pub error: Option<crate::models::Error>,
@@ -27,6 +33,7 @@ pub struct GetLightsResponseItem {
 	pub id: uuid::Uuid,
 	pub metadata: super::generic::Metadata,
 	pub dimming: Option<Dimming>,
+	pub dynamics: Option<Dynamics>
 	pub on: On,
 
 	pub color: Option<Color>,
@@ -58,6 +65,16 @@ pub struct LightSetBrightnessRequest {
 	pub dimming: LightSetBrightnessRequestBrightness,
 }
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct LightSetFadeDurationRequestDuration {
+	pub duration: i32,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct LightSetFadeDurationRequest {
+	pub dimming: LightSetFadeDurationDuration,
+}
+
 impl LightOnRequest {
 	pub fn new(on: bool) -> LightOnRequest {
 		LightOnRequest { on: On { on } }
@@ -77,6 +94,15 @@ impl LightSetBrightnessRequest {
 		LightSetBrightnessRequest {
 			dimming: LightSetBrightnessRequestBrightness {
 				brightness: brightness.max(0.0).min(100.0),
+			},
+		}
+	}
+}
+impl LightSetFadeDurationRequest {
+	pub fn new(duration: i32) -> LightSetFadeDurationRequest {
+		LightSetFadeDurationRequest {
+			dimming: LightSetFadeDurationRequestDuration {
+				duration: duration.min(0),
 			},
 		}
 	}
