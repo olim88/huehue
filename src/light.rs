@@ -44,14 +44,14 @@ impl Light {
 		}
 	}
 
-	pub async fn set_color(&mut self, component: Component) -> Result<(), HueError> {
+	pub async fn set_color(&mut self, component: Component, speed: f32) -> Result<(), HueError> {
 		if self.color.is_none() {
 			return Err(HueError::Unsupported);
 		}
 
 		let url = self.hue.url(format!("clip/v2/resource/light/{}", self.id).as_str());
 		let application_key = self.hue.application_key().clone().unwrap();
-		let request_payload = LightSetColorRequest::new(component.clone());
+		let request_payload = LightSetColorRequest::new(component.clone(),speed.clone());
 
 		match http::put_auth::<GenericResponse, LightSetColorRequest>(application_key, url, &request_payload).await {
 			Ok(_) => {
@@ -64,10 +64,10 @@ impl Light {
 		}
 	}
 
-	pub async fn set_color_rgb(&mut self, rgb: RGB8) -> Result<(), HueError> {
+	pub async fn set_color_rgb(&mut self, rgb: RGB8,speed: f32) -> Result<(), HueError> {
 		if let Some(color) = &self.color {
 			let xy = color.gamut.xy_from_rgb8(rgb);
-			self.set_color(xy).await
+			self.set_color(xy,speed).await
 		} else {
 			Err(HueError::Unsupported)
 		}

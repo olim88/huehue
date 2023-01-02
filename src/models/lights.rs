@@ -56,6 +56,7 @@ pub struct LightSetColorRequestXY {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LightSetColorRequest {
 	pub color: LightSetColorRequestXY,
+	pub dynamics: LightSetRequestDuration,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -84,9 +85,13 @@ impl LightOnRequest {
 }
 
 impl LightSetColorRequest {
-	pub fn new(color: Component) -> LightSetColorRequest {
+	pub fn new(color: Component, speed: f32) -> LightSetColorRequest {
 		LightSetColorRequest {
 			color: LightSetColorRequestXY { xy: color },
+		},
+		dynamics : LightSetRequestDuration{
+			duration: 0,// value dose not need to be set 
+			speed: speed.max(0.0).min(1.0),
 		}
 	}
 }
