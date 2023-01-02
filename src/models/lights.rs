@@ -102,7 +102,7 @@ impl LightSetFadeDurationRequest {
 	pub fn new(duration: f32) -> LightSetFadeDurationRequest {
 		LightSetFadeDurationRequest {
 			fading: LightSetFadeDurationRequestDuration {
-				duration: duration.min(0.0),
+				duration: duration.max(1.0).min(0.0),
 			},
 		}
 	}
