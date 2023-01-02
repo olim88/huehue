@@ -13,14 +13,6 @@ pub struct Dimming {
 	pub min_dim_level: f32,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Dynamics {
-	pub status: String,
-	pub status_values: Vec<String>,
-	pub speed: f32,
-	pub speed_valid: bool
-
-}
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct GetLightsResponse {
@@ -36,7 +28,6 @@ pub struct GetLightsResponseItem {
 	pub id: uuid::Uuid,
 	pub metadata: super::generic::Metadata,
 	pub dimming: Option<Dimming>,
-	pub dynamics: Option<Dynamics>,
 	pub on: On,
 
 	pub color: Option<Color>,
