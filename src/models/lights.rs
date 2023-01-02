@@ -72,7 +72,7 @@ pub struct LightSetFadeDurationRequestDuration {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LightSetFadeDurationRequest {
-	pub dimming: LightSetFadeDurationRequestDuration,
+	pub fading: LightSetFadeDurationRequestDuration,
 }
 
 impl LightOnRequest {
@@ -101,7 +101,7 @@ impl LightSetBrightnessRequest {
 impl LightSetFadeDurationRequest {
 	pub fn new(duration: f32) -> LightSetFadeDurationRequest {
 		LightSetFadeDurationRequest {
-			Dynamics: LightSetFadeDurationRequestDuration {
+			fading: LightSetFadeDurationRequestDuration {
 				duration: duration.min(0.0),
 			},
 		}
