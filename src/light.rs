@@ -26,7 +26,7 @@ impl Light {
 			name: light.metadata.name,
 			on: light.on.on,
 			brightness: light.dimming.map(|dimming| dimming.brightness),
-			fade_time: Some(12),//not the right value the time is not in the get i might be changing the wrong thing
+			fade_time: Some(12.0),//not the right value the time is not in the get i might be changing the wrong thing
 			color: light.color,
 			temperature: light.color_temperature,
 		}
