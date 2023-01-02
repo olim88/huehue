@@ -73,14 +73,14 @@ impl Light {
 		}
 	}
 
-	pub async fn dimm(&mut self, value: f32) -> Result<(), HueError> {
+	pub async fn dimm(&mut self, value: f32,duration:i32) -> Result<(), HueError> {
 		if self.brightness.is_none() {
 			return Err(HueError::Unsupported);
 		}
 
 		let url = self.hue.url(format!("clip/v2/resource/light/{}", self.id).as_str());
 		let application_key = self.hue.application_key().clone().unwrap();
-		let request_payload = LightSetBrightnessRequest::new(value.clone(),0);
+		let request_payload = LightSetBrightnessRequest::new(value.clone(),duration.clone());
 
 		match http::put_auth::<GenericResponse, LightSetBrightnessRequest>(application_key, url, &request_payload).await
 		{
