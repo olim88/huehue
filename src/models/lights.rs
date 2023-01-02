@@ -88,10 +88,11 @@ impl LightSetColorRequest {
 	pub fn new(color: Component, speed: f32) -> LightSetColorRequest {
 		LightSetColorRequest {
 			color: LightSetColorRequestXY { xy: color },
+			dynamics : LightSetRequestDuration{
+				duration: 0,// value dose not need to be set 
+				speed: speed.max(0.0).min(1.0),
 		},
-		dynamics : LightSetRequestDuration{
-			duration: 0,// value dose not need to be set 
-			speed: speed.max(0.0).min(1.0),
+		
 		}
 	}
 }
