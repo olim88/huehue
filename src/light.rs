@@ -80,7 +80,7 @@ impl Light {
 
 		let url = self.hue.url(format!("clip/v2/resource/light/{}", self.id).as_str());
 		let application_key = self.hue.application_key().clone().unwrap();
-		let request_payload = LightSetBrightnessRequest::new(value.clone(),duration.clone());
+		let request_payload = LightSetBrightnessRequest::new(value.clone(),speed.clone());
 
 		match http::put_auth::<GenericResponse, LightSetBrightnessRequest>(application_key, url, &request_payload).await
 		{
