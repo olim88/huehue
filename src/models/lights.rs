@@ -99,7 +99,7 @@ impl LightSetBrightnessRequest {
 			},
 			dynamics : LightSetRequestDuration{
 				duration: duration.min(0),
-				speed: 0.0,
+				speed: 0.001,
 			}
 
 		}
