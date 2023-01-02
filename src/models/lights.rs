@@ -71,7 +71,7 @@ pub struct LightSetBrightnessRequest {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LightSetRequestDuration {
-	pub time: i32,
+	pub duration: i32,
 }
 
 
@@ -97,7 +97,7 @@ impl LightSetBrightnessRequest {
 				brightness: brightness.max(0.0).min(100.0),
 			},
 			dynamics : LightSetRequestDuration{
-				time: duration.min(0),
+				duration: duration.min(0),
 			}
 
 		}
