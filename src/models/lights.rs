@@ -102,7 +102,7 @@ impl LightSetFadeDurationRequest {
 	pub fn new(duration: f32) -> LightSetFadeDurationRequest {
 		LightSetFadeDurationRequest {
 			Dynamics: LightSetFadeDurationRequestDuration {
-				duration: duration.min(0),
+				duration: duration.min(0.0),
 			},
 		}
 	}
