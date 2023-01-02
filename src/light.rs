@@ -73,7 +73,7 @@ impl Light {
 		}
 	}
 
-	pub async fn dimm(&mut self, value: f32,duration:i32) -> Result<(), HueError> {
+	pub async fn dimm(&mut self, value: f32,speed:f32) -> Result<(), HueError> {
 		if self.brightness.is_none() {
 			return Err(HueError::Unsupported);
 		}
