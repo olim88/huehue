@@ -85,27 +85,27 @@ impl LightOnRequest {
 }
 
 impl LightSetColorRequest {
-	pub fn new(color: Component, speed: f32) -> LightSetColorRequest {
+	pub fn new(color: Component, duration: i32) -> LightSetColorRequest {
 		LightSetColorRequest {
 			color: LightSetColorRequestXY { xy: color },
 			dynamics : LightSetRequestDuration{
-				duration: 0,// value dose not need to be set 
-				speed: speed.max(0.0).min(1.0),
-		},
+				duration: duration.max(0.0),
+				speed: 0.00,//i do not know what this dose 
+			}
 		
 		}
 	}
 }
 
 impl LightSetBrightnessRequest {
-	pub fn new(brightness: f32,speed: f32) -> LightSetBrightnessRequest {
+	pub fn new(brightness: f32,duration: i32) -> LightSetBrightnessRequest {
 		LightSetBrightnessRequest {
 			dimming: LightSetBrightnessRequestBrightness {
 				brightness: brightness.max(0.0).min(100.0),
 			},
 			dynamics : LightSetRequestDuration{
-				duration: 100,// value dose not need to be set 
-				speed: speed.max(0.0).min(1.0),
+				duration: duration.max(0.0),
+				speed: 0.00,//i do not know what this dose 
 			}
 
 		}
