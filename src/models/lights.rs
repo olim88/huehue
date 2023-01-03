@@ -66,6 +66,12 @@ pub struct LightSetRequestDuration {
 	pub duration: i32,
 	pub speed: f32
 }
+#[derive(Debug, Clone, Serialize, Deserialize)]//send both dimm and color in one request to reduce the number of requests
+pub struct LightSetBrightnessAndColorRequest {
+	pub dimming: LightSetBrightnessRequestBrightness,
+	pub color: LightSetColorRequestXY,
+	pub dynamics: LightSetRequestDuration,
+}
 
 
 
@@ -102,3 +108,21 @@ impl LightSetBrightnessRequest {
 		}
 	}
 }
+
+impl LightSetBrightnessAndColorRequest {
+	pub fn new(brightness: f32,color: Component,duration: i32) -> LightSetBrightnessAndColorRequest {
+		LightSetBrightnessAndColorRequest {
+			dimming: LightSetBrightnessRequestBrightness {
+				brightness: brightness.max(0.0).min(100.0),
+			},
+			color: LightSetColorRequestXY { xy: color 
+			},
+			dynamics : LightSetRequestDuration{
+				duration: duration.max(0),
+				speed: 0.00,//i do not know what this dose 
+			}
+
+		}
+	}
+}
+

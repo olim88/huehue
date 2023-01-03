@@ -73,6 +73,15 @@ impl Light {
 		}
 	}
 
+	pub async fn dimm_and_set_color_rgb(&mut self, rgb: RGB8, value: f32,duration: i32) -> Result<(), HueError> {
+		if let Some(color) = &self.color {
+			let xy = color.gamut.xy_from_rgb8(rgb);
+			self.dimm_and_set_color(value,xy,duration).await
+		} else {
+			Err(HueError::Unsupported)
+		}
+	}
+
 	pub async fn dimm(&mut self, value: f32,duration:i32) -> Result<(), HueError> {
 		if self.brightness.is_none() {
 			return Err(HueError::Unsupported);
@@ -89,6 +98,31 @@ impl Light {
 					*brightness = value;
 				}
 				Ok(())
+			},
+			Err(e) => Err(e),
+		}
+	}
+
+	pub async fn dimm_and_set_color(&mut self, value: f32, component: Component,duration:i32) -> Result<(), HueError> {
+		if self.brightness.is_none() {
+			return Err(HueError::Unsupported);
+		}
+
+		let url = self.hue.url(format!("clip/v2/resource/light/{}", self.id).as_str());
+		let application_key = self.hue.application_key().clone().unwrap();
+		let request_payload = LightSetBrightnessAndColorRequest::new(value.clone(),component.clone(),duration.clone());
+
+		match http::put_auth::<GenericResponse, LightSetBrightnessRequest>(application_key, url, &request_payload).await
+		{
+			Ok(_) => {
+				if let Some(brightness) = &mut self.brightness {
+					*brightness = value;
+				}
+				if let Some(color) = &mut self.color {
+					color.xy = component;
+				}
+				Ok(())
+
 			},
 			Err(e) => Err(e),
 		}
