@@ -1,6 +1,6 @@
 use crate::color::{Color, Component, Temperature, RGB8};
 use crate::http::HueError;
-use crate::models::lights::{GetLightsResponseItem, LightOnRequest, LightSetBrightnessRequest, LightSetColorRequest};
+use crate::models::lights::{GetLightsResponseItem, LightOnRequest, LightSetBrightnessRequest, LightSetColorRequest,LightSetBrightnessAndColorRequest};
 use crate::models::GenericResponse;
 use crate::{http, Hue};
 
