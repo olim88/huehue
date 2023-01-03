@@ -73,7 +73,7 @@ impl Light {
 		}
 	}
 
-	pub async fn dimm_and_set_color_rgb(&mut self, rgb: RGB8, value: f32,duration: i32) -> Result<(), HueError> {
+	pub async fn dimm_and_set_color_rgb(&mut self, value: f32, rgb: RGB8,duration: i32) -> Result<(), HueError> {
 		if let Some(color) = &self.color {
 			let xy = color.gamut.xy_from_rgb8(rgb);
 			self.dimm_and_set_color(value,xy,duration).await
