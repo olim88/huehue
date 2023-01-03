@@ -112,7 +112,7 @@ impl Light {
 		let application_key = self.hue.application_key().clone().unwrap();
 		let request_payload = LightSetBrightnessAndColorRequest::new(value.clone(),component.clone(),duration.clone());
 
-		match http::put_auth::<GenericResponse, LightSetBrightnessRequest>(application_key, url, &request_payload).await
+		match http::put_auth::<GenericResponse, LightSetBrightnessAndColorRequest>(application_key, url, &request_payload).await
 		{
 			Ok(_) => {
 				if let Some(brightness) = &mut self.brightness {
